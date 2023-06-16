@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public Transform gameOver;
+    public Transform victory;
     public float moveSpeed = 5f; 
     public Rigidbody2D player;
     private float horizontalInput;
@@ -58,6 +61,12 @@ public class PlayerController : MonoBehaviour
             player.isKinematic = false;
         }
 
+        if(horizontalInput > 0){
+            transform.localScale = new Vector3(1,1,1);
+        }else if( horizontalInput < 0){
+             transform.localScale = new Vector3(-1,1,1);
+        }
+
         movement.x = horizontalInput * moveSpeed;
     }
 
@@ -92,6 +101,32 @@ public class PlayerController : MonoBehaviour
            canClimb = false;
            
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision){
+        if(collision.gameObject.CompareTag("Fireball"))
+        {
+            StartCoroutine(GameOveDelay());
+        }
+
+        if(collision.gameObject.CompareTag("Princess"))
+        {
+              StartCoroutine(VictoryDelay());
+        }
+    }
+
+    IEnumerator GameOveDelay()
+    {
+        gameOver.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+     IEnumerator VictoryDelay()
+    {
+        victory.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }

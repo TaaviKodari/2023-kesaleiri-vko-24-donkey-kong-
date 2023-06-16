@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Platform
   - Ladder
+  - Wall
+  - Fireball
+  - Fire
+  - Princess
   layers:
   - Default
   - TransparentFX
@@ -40,6 +44,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 58242141
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 2766210213
     locked: 0
